@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coverage Details POC – Tech E&O/Cyber</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f3f2f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 24px;
+    color: #1a1a2e;
+  }
+
+  /* ── Page shell ── */
+  .page-header {
+    margin-bottom: 8px;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+  .page-header p {
+    font-size: 13.5px;
+    color: #6b6b8a;
+    line-height: 1.55;
+    max-width: 620px;
+    margin-top: 6px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .col-left { display: flex; flex-direction: column; gap: 0; }
+
+  /* ── Coverage Card ── */
+  .coverage-card {
+    background: #fff;
+    border: 1.5px solid #e4e2f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid #f0eef8;
+    gap: 12px;
+  }
+
+  .card-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e0d9ff 0%, #c8bfff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg { width: 20px; height: 20px; }
+
+  .card-header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .card-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #5b4fcf;
+    cursor: pointer;
+  }
+
+  .card-body { padding: 16px 20px 20px; }
+
+  .card-description {
+    font-size: 13px;
+    color: #6b6b8a;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  /* ── Fields grid ── */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    margin-bottom: 4px;
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 4px; }
+
+  .field-label {
+    font-size: 11.5px;
+    color: #9494b0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .field-label .info-icon {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1.5px solid #b0acd0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: #9494b0;
+    cursor: default;
+    line-height: 1;
+  }
+
+  .field-select {
+    appearance: none;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239494b0'/%3E%3C/svg%3E") no-repeat right 10px center;
+    border: 1.5px solid #dddaf0;
+    border-radius: 7px;
+    padding: 8px 28px 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #1a1a2e;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .field-select:focus { outline: none; border-color: #5b4fcf; }
+
+  .field-static {
+    border: 1.5px solid #dddaf0;
+    border-radius: 7px;
+    padding: 8px 10px;
+    font-size: 13px;
+    color: #9494b0;
+    background: #fafaf8;
+  }
+
+  /* ── Existing links row (How do I know / What's the difference) ── */
+  .existing-links-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .secondary-link {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #5b4fcf;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .secondary-link:hover { opacity: 0.7; }
+
+  /* ── What's Covered trigger ── */
+  .whats-covered-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    gap: 20px;
+  }
+
+  .covered-link {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #5b4fcf;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .covered-link:hover { opacity: 0.75; }
+
+  .covered-link svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  /* ── Coverage Level radios ── */
+  .coverage-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .level-option {
+    border: 1.5px solid #e4e2f0;
+    border-radius: 9px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .level-option.selected {
+    border-color: #5b4fcf;
+    background: #f7f5ff;
+  }
+
+  .level-radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #5b4fcf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .level-radio-inner {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #5b4fcf;
+  }
+
+  .level-radio-empty {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #c8c4e0;
+    flex-shrink: 0;
+  }
+
+  .level-label {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #1a1a2e;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .sidebar-card {
+    background: #fff;
+    border: 1.5px solid #e4e2f0;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .effective-label { font-size: 11.5px; font-weight: 600; color: #9494b0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #1a1a2e;
+  }
+
+  .date-range span { color: #9494b0; }
+
+  .address-block {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #6b6b8a;
+    line-height: 1.6;
+  }
+
+  .premium-label { font-size: 15px; font-weight: 600; margin-top: 20px; margin-bottom: 2px; }
+
+  .premium-amount {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.1;
+  }
+
+  .premium-amount small { font-size: 14px; font-weight: 400; color: #9494b0; }
+
+  .payment-info {
+    background: #eef4fd;
+    border-radius: 9px;
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: #3a6bb0;
+    line-height: 1.55;
+  }
+
+  .payment-info strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+  .payment-info ul { padding-left: 16px; margin-top: 4px; }
+
+  .btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #6f5fe0 0%, #4b39c4 100%);
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: opacity 0.15s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-secondary {
+    width: 100%;
+    background: transparent;
+    color: #5b4fcf;
+    border: 1.5px solid #5b4fcf;
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.15s;
+  }
+
+  .btn-secondary:hover { background: #f7f5ff; }
+
+  .docs-section { margin-top: 8px; }
+  .docs-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .doc-link { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #5b4fcf; cursor: pointer; margin-bottom: 6px; }
+
+  /* ─────────────────────────────────────────────
+     MODAL
+  ───────────────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 46, 0.45);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(12px);
+    transition: transform 0.2s;
+    box-shadow: 0 24px 60px rgba(26,26,46,0.18);
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-header {
+    padding: 22px 24px 0;
+    flex-shrink: 0;
+  }
+
+  .modal-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .modal-title { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+
+  .modal-subtitle {
+    font-size: 12.5px;
+    color: #9494b0;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9494b0;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  .modal-close:hover { color: #1a1a2e; }
+
+  /* Tabs */
+  .modal-tabs {
+    display: flex;
+    border-bottom: 1.5px solid #e4e2f0;
+    padding: 0 24px;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .modal-tab {
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #9494b0;
+    background: none;
+    border: none;
+    border-bottom: 2.5px solid transparent;
+    padding: 10px 18px;
+    cursor: pointer;
+    margin-bottom: -1.5px;
+    transition: color 0.15s, border-color 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .modal-tab:hover { color: #5b4fcf; }
+
+  .modal-tab.active {
+    color: #5b4fcf;
+    border-bottom-color: #5b4fcf;
+  }
+
+  .tab-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    background: #ede9ff;
+    color: #5b4fcf;
+    border-radius: 20px;
+    padding: 2px 7px;
+    line-height: 1.4;
+  }
+
+  .modal-tab.active .tab-badge {
+    background: #5b4fcf;
+    color: #fff;
+  }
+
+  /* Tab content */
+  .modal-body {
+    overflow-y: auto;
+    padding: 20px 24px 24px;
+    flex: 1;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .tab-intro {
+    font-size: 12.5px;
+    color: #6b6b8a;
+    line-height: 1.55;
+    margin-bottom: 16px;
+    padding: 10px 13px;
+    background: #f7f5ff;
+    border-radius: 8px;
+    border-left: 3px solid #5b4fcf;
+  }
+
+  /* Coverage table */
+  .coverage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .coverage-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9494b0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 12px 10px;
+    border-bottom: 1.5px solid #e4e2f0;
+  }
+
+  .coverage-table thead th:not(:first-child) { text-align: right; }
+
+  .coverage-table tbody tr {
+    border-bottom: 1px solid #f0eef8;
+    transition: background 0.1s;
+  }
+
+  .coverage-table tbody tr:last-child { border-bottom: none; }
+  .coverage-table tbody tr:hover { background: #faf9ff; }
+
+  .coverage-table tbody td {
+    padding: 11px 12px;
+    vertical-align: top;
+    color: #1a1a2e;
+  }
+
+  .coverage-table tbody td:not(:first-child) {
+    text-align: right;
+    color: #4a4a6a;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .coverage-name { font-weight: 500; }
+
+  .coverage-sub {
+    font-size: 11.5px;
+    color: #9494b0;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  .total-row td {
+    padding-top: 14px !important;
+    border-top: 1.5px solid #e4e2f0 !important;
+    font-weight: 700;
+    color: #1a1a2e !important;
+  }
+
+  .limit-cell { color: #5b4fcf !important; font-weight: 600 !important; }
+
+  .modal-footer {
+    padding: 16px 24px;
+    border-top: 1.5px solid #e4e2f0;
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+
+  .btn-modal-close {
+    background: #5b4fcf;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-modal-close:hover { opacity: 0.85; }
+
+  /* POC notice */
+  .poc-notice {
+    font-size: 11.5px;
+    color: #9494b0;
+    background: #fff;
+    border: 1.5px dashed #c8c4e0;
+    border-radius: 9px;
+    padding: 10px 14px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .poc-notice strong { color: #5b4fcf; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- LEFT COLUMN -->
+  <div class="col-left">
+    <div class="page-header">
+      <h1>Your Customizable Quote</h1>
+      <p>Based on your answers about your business, we have provided coverage options below. You can customize your coverage options to better suit your business needs.</p>
+    </div>
+
+    <br />
+
+    <div class="poc-notice">
+      <strong>POC note:</strong> A single <strong>"What's covered?"</strong> link opens a tabbed modal (3rd Party / 1st Party). All existing links are preserved: <strong>"How do I know how much I need?"</strong> sits below each field group, and <strong>"What's the difference?"</strong> remains right-aligned below the fields — unchanged from the original.
+    </div>
+
+    <!-- Tech E&O / Cyber Card -->
+    <div class="coverage-card">
+      <div class="card-header">
+        <!-- Row 1: icon — price + checkbox -->
+        <div class="card-header-top">
+          <div class="card-header-left">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#5b4fcf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-header-right">
+            <span class="card-price">$2,700</span>
+            <input type="checkbox" class="checkbox" checked />
+          </div>
+        </div>
+        <!-- Row 2: title — What's covered? -->
+        <div class="card-header-bottom">
+          <span class="card-title">Technology Errors and Omissions / Cyber</span>
+          <button class="covered-link" onclick="openModal('third-party')" style="white-space:nowrap; font-size:12px; flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            What's covered?
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="card-description">
+          Tech E&amp;O covers liability claims that allege financial losses arising from your tech products or services, while Cyber covers third-party liabilities and first-party expenses (e.g. notification costs, ransomware, system damage, etc.) associated with a network security breach.
+        </p>
+
+        <a href="#" class="secondary-link" style="display:inline-block; margin-bottom:16px;">How do I know how much I need?</a>
+
+        <!-- Fields grid -->
+        <div class="fields-grid">
+          <!-- Row 1 -->
+          <div class="field-group">
+            <label class="field-label">
+              Limit <span class="info-icon">i</span>
+            </label>
+            <select class="field-select">
+              <option>$1,000,000</option>
+              <option>$2,000,000</option>
+              <option>$5,000,000</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">
+              Retention <span class="info-icon">i</span>
+            </label>
+            <select class="field-select">
+              <option>$2,500</option>
+              <option>$5,000</option>
+              <option>$10,000</option>
+            </select>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="field-group">
+            <label class="field-label">
+              1st Party Expenses Limit <span class="info-icon">i</span>
+            </label>
+            <select class="field-select">
+              <option>$1,000,000</option>
+              <option>$2,000,000</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">1st Party Expenses Retention</label>
+            <div class="field-static">$2,500</div>
+          </div>
+        </div>
+
+        <!-- What's the difference link -->
+        <div class="existing-links-row" style="justify-content:flex-end; margin-top:10px;">
+          <a href="#" class="secondary-link">What's the difference?</a>
+        </div>
+
+        <!-- Coverage Levels -->
+        <div class="coverage-levels">
+          <div class="level-option selected">
+            <div class="level-radio"><div class="level-radio-inner"></div></div>
+            <span class="level-label">Standard Coverage Level</span>
+          </div>
+          <div class="level-option">
+            <div class="level-radio-empty"></div>
+            <span class="level-label">Plus Coverage Level</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder card 2 (collapsed) -->
+    <div class="coverage-card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5b4fcf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <span class="card-title">Directors &amp; Officers</span>
+        </div>
+        <div class="card-header-right">
+          <span class="card-price">$5,000</span>
+          <input type="checkbox" class="checkbox" checked />
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-description" style="color:#b0acd0;font-style:italic;font-size:12.5px;">Other coverage cards remain unchanged — no 3rd/1st party split applies here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="effective-label">Coverage Effective Date</div>
+      <div class="date-range">02/01/2021 <span>→</span> 02/01/2022</div>
+      <div class="address-block">
+        Fund Tech Co.<br/>
+        3435 Wilshire Blvd<br/>
+        Los Angeles, CA 90010
+      </div>
+      <div class="premium-label">Premium</div>
+      <div class="premium-amount">$10,200 <small>per year</small></div>
+      <div class="payment-info">
+        <strong>Payment Options</strong>
+        You can choose your method of payment after binding your policy. We offer:
+        <ul>
+          <li>Debit/Credit card</li>
+          <li>Premium financing</li>
+          <li>ACH/Wire transfer</li>
+          <li>Check</li>
+        </ul>
+      </div>
+      <button class="btn-primary">Continue to Review and Terms</button>
+      <button class="btn-secondary">Save Quote and Exit</button>
+    </div>
+
+    <div class="sidebar-card docs-section">
+      <div class="docs-label">Documents</div>
+      <div class="doc-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download application
+      </div>
+      <div class="doc-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Quote with Specimen Policies
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── MODAL ─────────────── -->
+<div class="modal-overlay" id="coverageModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-top-row">
+        <div>
+          <div class="modal-title">What's Covered — Tech E&O / Cyber</div>
+          <div class="modal-subtitle">Coverage breakdown aligned with your selected limits and retentions.</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-third-party" onclick="switchTab('third-party')">
+        3rd Party <span class="tab-badge">4</span>
+      </button>
+      <button class="modal-tab" id="tab-first-party" onclick="switchTab('first-party')">
+        1st Party <span class="tab-badge">8</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- 3rd Party Panel -->
+      <div class="tab-panel active" id="panel-third-party">
+        <div class="tab-intro">
+          These coverages apply to your <strong>Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They protect against third-party liability claims made against your business.
+        </div>
+        <table class="coverage-table">
+          <thead>
+            <tr>
+              <th>Coverage</th>
+              <th>Limit</th>
+              <th>Retention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="coverage-name">Tech and Media Errors & Omissions</div>
+                <div class="coverage-sub">Claims arising from tech products, services, or media content</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Withheld Fees</div>
+                <div class="coverage-sub">Coverage for fees withheld due to alleged errors in services</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Network Security and Privacy Liability</div>
+                <div class="coverage-sub">Third-party claims from data breaches or network security failures</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Contingent Bodily Injury</div>
+                <div class="coverage-sub">Bodily injury claims contingent on a tech product or service failure</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 1st Party Panel -->
+      <div class="tab-panel" id="panel-first-party">
+        <div class="tab-intro">
+          These coverages apply to your <strong>1st Party Expenses Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They reimburse your own business expenses following a covered event.
+        </div>
+        <table class="coverage-table">
+          <thead>
+            <tr>
+              <th>Coverage</th>
+              <th>Limit</th>
+              <th>Retention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="coverage-name">PCI (Payment Card Industry)</div>
+                <div class="coverage-sub">Fines and expenses from PCI DSS violations</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">System Damage</div>
+                <div class="coverage-sub">Costs to restore or repair damaged systems and data</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Telecommunication Fraud</div>
+                <div class="coverage-sub">Unauthorized use of phone systems or communication networks</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Extortion</div>
+                <div class="coverage-sub">Ransomware payments and extortion response costs</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Business Interruption</div>
+                <div class="coverage-sub">Lost income and extra expenses from a covered cyber event</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Social Engineering</div>
+                <div class="coverage-sub">Losses from deceptive instructions that cause fund transfers</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Dependent Business Interruption</div>
+                <div class="coverage-sub">Income loss due to a covered outage at a key vendor or supplier</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="coverage-name">Invoice Fraud</div>
+                <div class="coverage-sub">Losses from fraudulent invoices or payment redirection</div>
+              </td>
+              <td class="limit-cell">$1,000,000</td>
+              <td>$2,500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-modal-close" onclick="closeModal()">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(tab) {
+    switchTab(tab);
+    document.getElementById('coverageModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('coverageModal').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('coverageModal')) closeModal();
+  }
+
+  function switchTab(tabId) {
+    // Tabs
+    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    // Panels
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tabId).classList.add('active');
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
