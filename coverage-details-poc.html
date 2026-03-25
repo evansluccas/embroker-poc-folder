@@ -606,19 +606,23 @@
 
   .btn-modal-close:hover { opacity: 0.85; }
 
-  /* POC notice */
-  .poc-notice {
-    font-size: 11.5px;
-    color: #9494b0;
-    background: #fff;
-    border: 1.5px dashed #c8c4e0;
-    border-radius: 9px;
-    padding: 10px 14px;
-    margin-bottom: 24px;
-    line-height: 1.5;
+  /* ── Contenteditable styles ── */
+  [contenteditable="true"] {
+    border-radius: 4px;
+    outline: none;
+    transition: background 0.15s, box-shadow 0.15s;
+    cursor: text;
   }
 
-  .poc-notice strong { color: #5b4fcf; }
+  [contenteditable="true"]:hover {
+    background: #f0edff;
+    box-shadow: 0 0 0 2px #c8bfff;
+  }
+
+  [contenteditable="true"]:focus {
+    background: #ebe6ff;
+    box-shadow: 0 0 0 2px #5b4fcf;
+  }
 </style>
 </head>
 <body>
@@ -626,8 +630,8 @@
   <!-- LEFT COLUMN -->
   <div class="col-left">
     <div class="page-header">
-      <h1>Your Customizable Quote</h1>
-      <p>Based on your answers about your business, we have provided coverage options below. You can customize your coverage options to better suit your business needs.</p>
+      <h1 contenteditable="true">Your Customizable Quote</h1>
+      <p contenteditable="true">Based on your answers about your business, we have provided coverage options below. You can customize your coverage options to better suit your business needs.</p>
     </div>
 
     <br />
@@ -647,13 +651,13 @@
             </div>
           </div>
           <div class="card-header-right">
-            <span class="card-price">$2,700</span>
+            <span class="card-price" contenteditable="true">$2,700</span>
             <input type="checkbox" class="checkbox" checked />
           </div>
         </div>
         <!-- Row 2: title — What's covered? -->
         <div class="card-header-bottom">
-          <span class="card-title">Technology Errors and Omissions / Cyber</span>
+          <span class="card-title" contenteditable="true">Technology Errors and Omissions / Cyber</span>
           <button class="covered-link" onclick="openModal('third-party')" style="white-space:nowrap; font-size:12px; flex-shrink:0;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -664,7 +668,7 @@
       </div>
 
       <div class="card-body">
-        <p class="card-description">
+        <p class="card-description" contenteditable="true">
           Tech E&amp;O covers liability claims that allege financial losses arising from your tech products or services, while Cyber covers third-party liabilities and first-party expenses (e.g. notification costs, ransomware, system damage, etc.) associated with a network security breach.
         </p>
 
@@ -719,11 +723,11 @@
         <div class="coverage-levels">
           <div class="level-option selected">
             <div class="level-radio"><div class="level-radio-inner"></div></div>
-            <span class="level-label">Standard Coverage Level</span>
+            <span class="level-label" contenteditable="true">Standard Coverage Level</span>
           </div>
           <div class="level-option">
             <div class="level-radio-empty"></div>
-            <span class="level-label">Plus Coverage Level</span>
+            <span class="level-label" contenteditable="true">Plus Coverage Level</span>
           </div>
         </div>
       </div>
@@ -746,7 +750,11 @@
         </div>
       </div>
       <div class="card-body">
+<<<<<<< HEAD
         <p class="card-description" style="color:#b0acd0;font-style:italic;font-size:12.5px;">Only Tech E&O is visible for this POC.</p>
+=======
+        <p class="card-description" style="color:#b0acd0;font-style:italic;font-size:12.5px;" contenteditable="true">Only Tech E&O is visible for this POC.</p>
+>>>>>>> 5e9403f (Make all text editable for stakeholder review)
       </div>
     </div>
   </div>
@@ -755,26 +763,26 @@
   <div class="sidebar">
     <div class="sidebar-card">
       <div class="effective-label">Coverage Effective Date</div>
-      <div class="date-range">02/01/2021 <span>→</span> 02/01/2022</div>
-      <div class="address-block">
+      <div class="date-range" contenteditable="true">02/01/2021 <span>→</span> 02/01/2022</div>
+      <div class="address-block" contenteditable="true">
         Fund Tech Co.<br/>
         3435 Wilshire Blvd<br/>
         Los Angeles, CA 90010
       </div>
       <div class="premium-label">Premium</div>
-      <div class="premium-amount">$10,200 <small>per year</small></div>
+      <div class="premium-amount" contenteditable="true">$10,200 <small>per year</small></div>
       <div class="payment-info">
-        <strong>Payment Options</strong>
-        You can choose your method of payment after binding your policy. We offer:
+        <strong contenteditable="true">Payment Options</strong>
+        <span contenteditable="true">You can choose your method of payment after binding your policy. We offer:</span>
         <ul>
-          <li>Debit/Credit card</li>
-          <li>Premium financing</li>
-          <li>ACH/Wire transfer</li>
-          <li>Check</li>
+          <li contenteditable="true">Debit/Credit card</li>
+          <li contenteditable="true">Premium financing</li>
+          <li contenteditable="true">ACH/Wire transfer</li>
+          <li contenteditable="true">Check</li>
         </ul>
       </div>
-      <button class="btn-primary">Continue to Review and Terms</button>
-      <button class="btn-secondary">Save Quote and Exit</button>
+      <button class="btn-primary" contenteditable="true">Continue to Review and Terms</button>
+      <button class="btn-secondary" contenteditable="true">Save Quote and Exit</button>
     </div>
 
     <div class="sidebar-card docs-section">
@@ -797,8 +805,8 @@
     <div class="modal-header">
       <div class="modal-top-row">
         <div>
-          <div class="modal-title">What's Covered — Tech E&O / Cyber</div>
-          <div class="modal-subtitle">Coverage breakdown aligned with your selected limits and retentions.</div>
+          <div class="modal-title" contenteditable="true">What's Covered — Tech E&O / Cyber</div>
+          <div class="modal-subtitle" contenteditable="true">Coverage breakdown aligned with your selected limits and retentions.</div>
         </div>
         <button class="modal-close" onclick="closeModal()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -819,49 +827,49 @@
 
       <!-- 3rd Party Panel -->
       <div class="tab-panel active" id="panel-third-party">
-        <div class="tab-intro">
+        <div class="tab-intro" contenteditable="true">
           These coverages apply to your <strong>Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They protect against third-party liability claims made against your business.
         </div>
         <table class="coverage-table">
           <thead>
             <tr>
-              <th>Coverage</th>
-              <th>Limit</th>
-              <th>Retention</th>
+              <th contenteditable="true">Coverage</th>
+              <th contenteditable="true">Limit</th>
+              <th contenteditable="true">Retention</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <div class="coverage-name">Tech and Media Errors & Omissions</div>
-                <div class="coverage-sub">Claims arising from tech products, services, or media content</div>
+                <div class="coverage-name" contenteditable="true">Tech and Media Errors & Omissions</div>
+                <div class="coverage-sub" contenteditable="true">Claims arising from tech products, services, or media content</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Withheld Fees</div>
-                <div class="coverage-sub">Coverage for fees withheld due to alleged errors in services</div>
+                <div class="coverage-name" contenteditable="true">Withheld Fees</div>
+                <div class="coverage-sub" contenteditable="true">Coverage for fees withheld due to alleged errors in services</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Network Security and Privacy Liability</div>
-                <div class="coverage-sub">Third-party claims from data breaches or network security failures</div>
+                <div class="coverage-name" contenteditable="true">Network Security and Privacy Liability</div>
+                <div class="coverage-sub" contenteditable="true">Third-party claims from data breaches or network security failures</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Contingent Bodily Injury</div>
-                <div class="coverage-sub">Bodily injury claims contingent on a tech product or service failure</div>
+                <div class="coverage-name" contenteditable="true">Contingent Bodily Injury</div>
+                <div class="coverage-sub" contenteditable="true">Bodily injury claims contingent on a tech product or service failure</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
           </tbody>
         </table>
@@ -869,81 +877,81 @@
 
       <!-- 1st Party Panel -->
       <div class="tab-panel" id="panel-first-party">
-        <div class="tab-intro">
+        <div class="tab-intro" contenteditable="true">
           These coverages apply to your <strong>1st Party Expenses Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They reimburse your own business expenses following a covered event.
         </div>
         <table class="coverage-table">
           <thead>
             <tr>
-              <th>Coverage</th>
-              <th>Limit</th>
-              <th>Retention</th>
+              <th contenteditable="true">Coverage</th>
+              <th contenteditable="true">Limit</th>
+              <th contenteditable="true">Retention</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <div class="coverage-name">PCI (Payment Card Industry)</div>
-                <div class="coverage-sub">Fines and expenses from PCI DSS violations</div>
+                <div class="coverage-name" contenteditable="true">PCI (Payment Card Industry)</div>
+                <div class="coverage-sub" contenteditable="true">Fines and expenses from PCI DSS violations</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">System Damage</div>
-                <div class="coverage-sub">Costs to restore or repair damaged systems and data</div>
+                <div class="coverage-name" contenteditable="true">System Damage</div>
+                <div class="coverage-sub" contenteditable="true">Costs to restore or repair damaged systems and data</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Telecommunication Fraud</div>
-                <div class="coverage-sub">Unauthorized use of phone systems or communication networks</div>
+                <div class="coverage-name" contenteditable="true">Telecommunication Fraud</div>
+                <div class="coverage-sub" contenteditable="true">Unauthorized use of phone systems or communication networks</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Extortion</div>
-                <div class="coverage-sub">Ransomware payments and extortion response costs</div>
+                <div class="coverage-name" contenteditable="true">Extortion</div>
+                <div class="coverage-sub" contenteditable="true">Ransomware payments and extortion response costs</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Business Interruption</div>
-                <div class="coverage-sub">Lost income and extra expenses from a covered cyber event</div>
+                <div class="coverage-name" contenteditable="true">Business Interruption</div>
+                <div class="coverage-sub" contenteditable="true">Lost income and extra expenses from a covered cyber event</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Social Engineering</div>
-                <div class="coverage-sub">Losses from deceptive instructions that cause fund transfers</div>
+                <div class="coverage-name" contenteditable="true">Social Engineering</div>
+                <div class="coverage-sub" contenteditable="true">Losses from deceptive instructions that cause fund transfers</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Dependent Business Interruption</div>
-                <div class="coverage-sub">Income loss due to a covered outage at a key vendor or supplier</div>
+                <div class="coverage-name" contenteditable="true">Dependent Business Interruption</div>
+                <div class="coverage-sub" contenteditable="true">Income loss due to a covered outage at a key vendor or supplier</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
             <tr>
               <td>
-                <div class="coverage-name">Invoice Fraud</div>
-                <div class="coverage-sub">Losses from fraudulent invoices or payment redirection</div>
+                <div class="coverage-name" contenteditable="true">Invoice Fraud</div>
+                <div class="coverage-sub" contenteditable="true">Losses from fraudulent invoices or payment redirection</div>
               </td>
-              <td class="limit-cell">$1,000,000</td>
-              <td>$2,500</td>
+              <td class="limit-cell" contenteditable="true">$1,000,000</td>
+              <td contenteditable="true">$2,500</td>
             </tr>
           </tbody>
         </table>
