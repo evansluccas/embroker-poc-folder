@@ -721,13 +721,13 @@
 
         <!-- Coverage Levels -->
         <div class="coverage-levels">
-          <div class="level-option selected">
-            <div class="level-radio"><div class="level-radio-inner"></div></div>
-            <span class="level-label" contenteditable="true">Standard Coverage Level</span>
+          <div class="level-option selected" onclick="selectLevel('premier')">
+            <div class="level-radio" id="radio-premier"><div class="level-radio-inner"></div></div>
+            <span class="level-label">Premier Coverage Level</span>
           </div>
-          <div class="level-option">
-            <div class="level-radio-empty"></div>
-            <span class="level-label" contenteditable="true">Plus Coverage Level</span>
+          <div class="level-option" onclick="selectLevel('elite')">
+            <div class="level-radio-empty" id="radio-elite"></div>
+            <span class="level-label">Elite Coverage Level</span>
           </div>
         </div>
       </div>
@@ -812,147 +812,43 @@
 
     <div class="modal-tabs">
       <button class="modal-tab active" id="tab-third-party" onclick="switchTab('third-party')">
-        3rd Party <span class="tab-badge">4</span>
+        3rd Party <span class="tab-badge" id="badge-third-party">4</span>
       </button>
       <button class="modal-tab" id="tab-first-party" onclick="switchTab('first-party')">
-        1st Party <span class="tab-badge">8</span>
+        1st Party <span class="tab-badge" id="badge-first-party">5</span>
       </button>
     </div>
 
     <div class="modal-body">
-
       <!-- 3rd Party Panel -->
       <div class="tab-panel active" id="panel-third-party">
-        <div class="tab-intro" contenteditable="true">
-          These coverages apply to your <strong>Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They protect against third-party liability claims made against your business.
-        </div>
+        <div class="tab-intro" id="intro-third-party"></div>
         <table class="coverage-table">
           <thead>
             <tr>
-              <th contenteditable="true">Coverage</th>
-              <th contenteditable="true">Limit</th>
-              <th contenteditable="true">Retention</th>
+              <th>Coverage</th>
+              <th>Limit</th>
+              <th>Retention</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Tech and Media Errors & Omissions</div>
-                <div class="coverage-sub" contenteditable="true">Claims arising from tech products, services, or media content</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Withheld Fees</div>
-                <div class="coverage-sub" contenteditable="true">Coverage for fees withheld due to alleged errors in services</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Network Security and Privacy Liability</div>
-                <div class="coverage-sub" contenteditable="true">Third-party claims from data breaches or network security failures</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Contingent Bodily Injury</div>
-                <div class="coverage-sub" contenteditable="true">Bodily injury claims contingent on a tech product or service failure</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-          </tbody>
+          <tbody id="tbody-third-party"></tbody>
         </table>
       </div>
 
       <!-- 1st Party Panel -->
       <div class="tab-panel" id="panel-first-party">
-        <div class="tab-intro" contenteditable="true">
-          These coverages apply to your <strong>1st Party Expenses Limit ($1,000,000)</strong> and <strong>Retention ($2,500)</strong> selections. They reimburse your own business expenses following a covered event.
-        </div>
+        <div class="tab-intro" id="intro-first-party"></div>
         <table class="coverage-table">
           <thead>
             <tr>
-              <th contenteditable="true">Coverage</th>
-              <th contenteditable="true">Limit</th>
-              <th contenteditable="true">Retention</th>
+              <th>Coverage</th>
+              <th>Limit</th>
+              <th>Retention</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">PCI (Payment Card Industry)</div>
-                <div class="coverage-sub" contenteditable="true">Fines and expenses from PCI DSS violations</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">System Damage</div>
-                <div class="coverage-sub" contenteditable="true">Costs to restore or repair damaged systems and data</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Telecommunication Fraud</div>
-                <div class="coverage-sub" contenteditable="true">Unauthorized use of phone systems or communication networks</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Extortion</div>
-                <div class="coverage-sub" contenteditable="true">Ransomware payments and extortion response costs</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Business Interruption</div>
-                <div class="coverage-sub" contenteditable="true">Lost income and extra expenses from a covered cyber event</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Social Engineering</div>
-                <div class="coverage-sub" contenteditable="true">Losses from deceptive instructions that cause fund transfers</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Dependent Business Interruption</div>
-                <div class="coverage-sub" contenteditable="true">Income loss due to a covered outage at a key vendor or supplier</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="coverage-name" contenteditable="true">Invoice Fraud</div>
-                <div class="coverage-sub" contenteditable="true">Losses from fraudulent invoices or payment redirection</div>
-              </td>
-              <td class="limit-cell" contenteditable="true">$1,000,000</td>
-              <td contenteditable="true">$2,500</td>
-            </tr>
-          </tbody>
+          <tbody id="tbody-first-party"></tbody>
         </table>
       </div>
-
     </div>
 
     <div class="modal-footer">
@@ -962,7 +858,116 @@
 </div>
 
 <script>
+  // ── Coverage data ──────────────────────────────────────────────
+  const COVERAGE_DATA = {
+    premier: {
+      thirdParty: {
+        intro: 'These coverages are included in your <strong>3rd Party Limit</strong> selection. They protect against costs associated with liability claims made against your business.',
+        rows: [
+          { name: 'Tech and Media Errors & Omissions',       sub: 'Claims arising from tech products & services, or media content',                              limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Withheld Fees',                           sub: 'Coverage for fees withheld to prevent a threatened lawsuit.',                                  limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Network Security and Privacy Liability',  sub: 'Claims arising from data breaches or failure to protect sensitive info',                       limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Contingent Bodily Injury',                sub: 'Claims for bodily injury arising from your tech products or services',                         limit: '$1,000,000', retention: '$2,500' },
+        ]
+      },
+      firstParty: {
+        intro: 'These coverages are included in your <strong>1st Party Expenses Limit</strong> selection. They cover the costs and expenses your business may incur following a network security breach.',
+        rows: [
+          { name: 'PCI (Payment Card Industry)',             sub: 'Covers fines & card replacement costs for PCI standards violations.',                          limit: '$1,000,000', retention: '$2,500' },
+          { name: 'System Damage',                           sub: 'Covers costs to restore or replace systems damaged by a breach',                               limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Extortion',                               sub: 'Covers ransom payments and related costs',                                                     limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Business Interruption',                   sub: 'Covers income lost due to a breach or system failures',                                        limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Privacy Breach and Forensics Expenses',   sub: 'Covers breach response costs: forensics, notifications, credit monitoring, and PR.',           limit: '$1,000,000', retention: '$2,500' },
+        ]
+      }
+    },
+    elite: {
+      thirdParty: {
+        intro: 'These coverages are included in your <strong>3rd Party Limit</strong> selection. They protect against costs associated with liability claims made against your business.',
+        rows: [
+          { name: 'Tech and Media Errors & Omissions',                  sub: 'Claims arising from tech products & services, or media content',                              limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Contractual Privacy Breach and Forensics Expenses',  sub: 'Coverage for breach costs you\'re contractually required to pay',                            limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Withheld Fees',                                       sub: 'Coverage for fees withheld to prevent a threatened lawsuit.',                                  limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Network Security and Privacy Liability',              sub: 'Claims arising from data breaches or failure to protect sensitive info',                       limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Contingent Bodily Injury',                            sub: 'Claims for bodily injury arising from your tech products or services',                         limit: '$1,000,000', retention: '$2,500' },
+        ]
+      },
+      firstParty: {
+        intro: 'These coverages are included in your <strong>1st Party Expenses Limit</strong> selection. They cover the costs and expenses your business may incur following a network security breach.',
+        rows: [
+          { name: 'PCI (Payment Card Industry)',                                  sub: 'Covers fines & card replacement costs for PCI standards violations.',                limit: '$1,000,000', retention: '$2,500' },
+          { name: 'System Damage',                                                sub: 'Covers costs to restore or replace systems damaged by a breach',                     limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Telecommunication Fraud',                                      sub: 'Covers unauthorized phone or utility charges caused by a breach',                    limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Extortion',                                                    sub: 'Covers ransom payments and related costs',                                           limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Business Interruption',                                        sub: 'Covers income lost due to a breach or system failures',                              limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Social Engineering',                                           sub: 'Covers money lost to scams or hijacked payment transfers',                           limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Dependent Business Interruption',                              sub: 'Covers income lost due to vendor failure disrupting your operations',                limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Invoice Fraud',                                                sub: 'Covers losses when hackers manipulate invoices or deliveries.',                      limit: '$1,000,000', retention: '$2,500' },
+          { name: 'Privacy Breach, Forensic Expenses, and Reputational Harm',    sub: 'Covers breach response costs: forensics, notifications, credit monitoring, and PR.', limit: '$1,000,000', retention: '$2,500' },
+        ]
+      }
+    }
+  };
+
+  // ── State ──────────────────────────────────────────────────────
+  let currentLevel = 'premier';
+  let currentTab   = 'third-party';
+
+  // ── Render helpers ─────────────────────────────────────────────
+  function renderTable(tbodyId, rows) {
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = rows.map(r => `
+      <tr>
+        <td>
+          <div class="coverage-name" contenteditable="true">${r.name}</div>
+          <div class="coverage-sub"  contenteditable="true">${r.sub}</div>
+        </td>
+        <td class="limit-cell" contenteditable="true">${r.limit}</td>
+        <td contenteditable="true">${r.retention}</td>
+      </tr>`).join('');
+  }
+
+  function renderModal() {
+    const data = COVERAGE_DATA[currentLevel];
+
+    document.getElementById('intro-third-party').innerHTML = data.thirdParty.intro;
+    document.getElementById('intro-first-party').innerHTML = data.firstParty.intro;
+
+    renderTable('tbody-third-party', data.thirdParty.rows);
+    renderTable('tbody-first-party', data.firstParty.rows);
+
+    document.getElementById('badge-third-party').textContent = data.thirdParty.rows.length;
+    document.getElementById('badge-first-party').textContent = data.firstParty.rows.length;
+  }
+
+  // ── Level selection ────────────────────────────────────────────
+  function selectLevel(level) {
+    currentLevel = level;
+
+    // Update radio UI
+    const levels = ['premier', 'elite'];
+    levels.forEach(l => {
+      const option = document.querySelector(`[onclick="selectLevel('${l}')"]`);
+      const radioEl = document.getElementById('radio-' + l);
+
+      if (l === level) {
+        option.classList.add('selected');
+        radioEl.className = 'level-radio';
+        radioEl.innerHTML = '<div class="level-radio-inner"></div>';
+      } else {
+        option.classList.remove('selected');
+        radioEl.className = 'level-radio-empty';
+        radioEl.innerHTML = '';
+      }
+    });
+
+    // Re-render modal with new level data
+    renderModal();
+  }
+
+  // ── Modal open/close ───────────────────────────────────────────
   function openModal(tab) {
+    renderModal();
     switchTab(tab);
     document.getElementById('coverageModal').classList.add('open');
   }
@@ -976,10 +981,9 @@
   }
 
   function switchTab(tabId) {
-    // Tabs
+    currentTab = tabId;
     document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('tab-' + tabId).classList.add('active');
-    // Panels
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tabId).classList.add('active');
   }
